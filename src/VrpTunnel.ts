@@ -20,7 +20,7 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
     const ids = new IdGenerator();
     const callbacks: Callbacks = {};
 
-    on(`${name}:${identifier}:tunnel_res`, (id: number, payloads: unknown[]) => {
+    onNet(`${name}:${identifier}:tunnel_res`, (id: number, payloads: unknown[]) => {
         const callback = callbacks[id];
         if (callback) {
             delete callbacks[id];
