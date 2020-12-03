@@ -33,7 +33,7 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
     function generateHandler(memberName: string): CallHandler {
         return (target, ...args) => {
             if (target === -1 || memberName.startsWith('_')) {
-                emitNet(`${name}:tunnel_req`, target, memberName, args, identifier, -1);
+                emitNet(`${name}:tunnel_req`, target, memberName.substring(2), args, identifier, -1);
                 return undefined;
             }
 
