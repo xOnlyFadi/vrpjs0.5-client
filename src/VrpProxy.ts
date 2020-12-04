@@ -43,7 +43,7 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
                     resolve(response);
                 };
 
-                emit(`${name}:proxy`, memberName, args, identifier, -1);
+                emit(`${name}:proxy`, memberName, args, identifier, id);
             });
 
             return responseReady ? response : promise;
