@@ -27,7 +27,7 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
     function generateHandler(memberName: string): Handler {
         return (...args: any[]) => {
             if (memberName.startsWith('_')) {
-                return emit(`${name}:proxy`, memberName.substring(2), args, identifier, -1);
+                return emit(`${name}:proxy`, memberName.substring(1), args, identifier, -1);
             }
 
             let responseReady = false;
