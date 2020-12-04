@@ -1,6 +1,6 @@
 {
   "name": "@vrpjs/server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A FiveM package to use vRP in javascript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
