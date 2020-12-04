@@ -11,14 +11,17 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
-    "version": "npm run format && git add -a src",
+    "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaimeadf/vrpjs-server"
   },
-  "keywords": ["vrp", "fivem"],
+  "keywords": [
+    "vrp",
+    "fivem"
+  ],
   "author": "Jaime Filho <jaimeadf>",
   "license": "MIT",
   "files": [
