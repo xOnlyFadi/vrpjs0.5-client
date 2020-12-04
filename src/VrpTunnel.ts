@@ -1,6 +1,6 @@
 import IdGenerator from './IdGenerator';
 
-export type CallHandler = (target: number | string, ...args: any[]) => Promise<unknown> | undefined;
+export type CallHandler = (target: number | string, ...args: any[]) => Promise<unknown> | void;
 
 export interface CallHandlers {
     [member: string]: CallHandler;
@@ -33,8 +33,7 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
     function generateHandler(memberName: string): CallHandler {
         return (target, ...args) => {
             if (target === -1 || memberName.startsWith('_')) {
-                emitNet(`${name}:tunnel_req`, target, memberName.substring(2), args, identifier, -1);
-                return undefined;
+                return emitNet(`${name}:tunnel_req`, target, memberName.substring(2), args, identifier, -1);
             }
 
             return new Promise(resolve => {

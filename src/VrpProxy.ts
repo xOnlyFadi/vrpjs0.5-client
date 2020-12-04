@@ -1,6 +1,6 @@
 import IdGenerator from './IdGenerator';
 
-export type Handler = (...args: any[]) => Promise<unknown> | unknown | undefined;
+export type Handler = (...args: any[]) => Promise<unknown> | unknown;
 
 export interface Handlers {
     [member: string]: Handler;
@@ -25,10 +25,9 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
     });
 
     function generateHandler(memberName: string): Handler {
-        return (...args) => {
+        return (...args: any[]) => {
             if (memberName.startsWith('_')) {
-                emit(`${name}:proxy`, memberName.substring(2), args, identifier, -1);
-                return undefined;
+                return emit(`${name}:proxy`, memberName.substring(2), args, identifier, -1);
             }
 
             let responseReady = false;
