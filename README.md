@@ -23,7 +23,7 @@ on('vRP:playerSpawn', async (userId, player, firstSpawn) => {
             vRPClient._notify(player, `You now have ~g~$${vRP.getMoney(userId)}!`);
         } else {
             const position = await vRPClient.getPosition(player);
-            vRPClient._notify(player, `You recused money at ~b~$${position.join('~s~, ~b~')}~s~!`);
+            vRPClient._notify(player, `You recused money at ~b~${position.join('~s~, ~b~')}~s~!`);
         }
     }
 });
