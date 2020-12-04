@@ -75,7 +75,7 @@ export function bindInterface(name: string, handlers: BindHandlers) {
 
         if (handler) {
             try {
-                payload = await handler(args);
+                payload = await handler(...args);
             } catch (err) {
                 console.error(err);
             }
