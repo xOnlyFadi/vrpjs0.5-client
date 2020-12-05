@@ -20,7 +20,10 @@
   },
   "keywords": [
     "vrp",
-    "fivem"
+    "fivem",
+    "wrapper",
+    "citizenfx",
+    "typescript"
   ],
   "author": "Jaime Filho <jaimeadf>",
   "license": "MIT",
