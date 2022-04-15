@@ -1,51 +1,18 @@
-import IdGenerator from './IdGenerator';
-
 export type Handler = (...args: any[]) => Promise<unknown> | unknown;
 
 export interface Handlers {
     [member: string]: Handler;
 }
 
-interface Callbacks {
-    [id: number]: (value: unknown) => void;
-}
-
-export function getInterface(name: string, identifier: string = GetCurrentResourceName()) {
-    const ids = new IdGenerator();
-    const callbacks: Callbacks = {};
-
-    on(`${name}:${identifier}:proxy_res`, (id: number, payloads: unknown[]) => {
-        const callback = callbacks[id];
-        if (callback) {
-            delete callbacks[id];
-            ids.free(id);
-
-            callback(payloads.length <= 1 ? payloads[0] : payloads);
-        }
-    });
-
+export function getInterface(name: string) {
+    let Proxyrdata = {};
+    function proxy_callback(rvalues: any) {
+        Proxyrdata = rvalues;
+    }
     function generateHandler(memberName: string): Handler {
         return (...args: any[]) => {
-            if (memberName.startsWith('_')) {
-                return emit(`${name}:proxy`, memberName.substring(1), args, identifier, -1);
-            }
-
-            let responseReady = false;
-            let response: unknown;
-
-            const promise = new Promise<unknown>(resolve => {
-                const id = ids.gen();
-                callbacks[id] = value => {
-                    responseReady = true;
-                    response = value;
-
-                    resolve(response);
-                };
-
-                emit(`${name}:proxy`, memberName, args, identifier, id);
-            });
-
-            return responseReady ? response : promise;
+            emit(`${name}:proxy`, memberName, args, proxy_callback);
+            return Proxyrdata;
         };
     }
 
@@ -69,7 +36,7 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
 }
 
 export function addInterface(name: string, handlers: Handlers) {
-    on(`${name}:proxy`, async (member: string, args: any[], identifier: string, id: number) => {
+    on(`${name}:proxy`, async (member: string, args: any[], callback: any) => {
         const handler = handlers[member];
         let payload: unknown;
 
@@ -82,9 +49,6 @@ export function addInterface(name: string, handlers: Handlers) {
         } else {
             console.log(`error: proxy call ${name}:${member} not found`);
         }
-
-        if (id >= 0) {
-            emit(`${name}:${identifier}:proxy_res`, id, [payload]);
-        }
+        callback(payload);
     });
 }
