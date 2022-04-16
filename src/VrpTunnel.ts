@@ -33,14 +33,14 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
     function generateHandler(memberName: string): CallHandler {
         return (target, ...args) => {
             if (target === -1 || memberName.startsWith('_')) {
-                return emitNet(`${name}:tunnel_req`, target, memberName.substring(1), {args}, identifier, -1);
+                return emitNet(`${name}:tunnel_req`, target, memberName.substring(1), args, identifier, -1);
             }
 
             return new Promise(resolve => {
                 const id = ids.gen();
 
                 callbacks[id] = resolve;
-
+                console.log(`target is ${target}, memberName is ${memberName},args is ${args},identifier is ${identifier}`)
                 emitNet(`${name}:tunnel_req`, target, memberName, args, identifier, id);
             });
         };
