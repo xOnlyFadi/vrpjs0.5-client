@@ -1,6 +1,6 @@
 import IdGenerator from './IdGenerator';
 
-export type CallHandler = (target: number | string, ...args: any[]) => Promise<unknown> | void;
+export type CallHandler = (...args: any[]) => Promise<unknown> | void;
 
 export interface CallHandlers {
     [member: string]: CallHandler;
@@ -26,21 +26,22 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
             delete callbacks[id];
             ids.free(id);
 
-            callback(payloads);
+            callback(payloads.length <= 1 ? payloads[0] : payloads);
         }
     });
 
     function generateHandler(memberName: string): CallHandler {
-        return (target, ...args) => {
-            if (target === -1 || memberName.startsWith('_')) {
-                return emitNet(`${name}:tunnel_req`, target, memberName.substring(1), args, identifier, -1);
+        return (...args) => {
+            if (memberName.startsWith('_')) {
+                return emitNet(`${name}:tunnel_req`, memberName.substring(1), args, identifier, -1);
             }
 
             return new Promise(resolve => {
                 const id = ids.gen();
 
                 callbacks[id] = resolve;
-                emitNet(`${name}:tunnel_req`, target, memberName, args, identifier, id);
+
+                emitNet(`${name}:tunnel_req`, memberName, args, identifier, id);
             });
         };
     }
@@ -66,8 +67,6 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
 
 export function bindInterface(name: string, handlers: BindHandlers) {
     onNet(`${name}:tunnel_req`, async (member: string, args: any[], identifier: string, id: number) => {
-        const source = global.source;
-
         const handler = handlers[member];
         let payload: unknown;
 
@@ -80,7 +79,7 @@ export function bindInterface(name: string, handlers: BindHandlers) {
         }
 
         if (id >= 0) {
-            emitNet(`${name}:${identifier}:tunnel_res`, source, id, [payload]);
+            emitNet(`${name}:${identifier}:tunnel_res`, id, [payload]);
         }
     });
 }
