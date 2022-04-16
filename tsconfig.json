@@ -5,7 +5,7 @@
         "declaration": true,
         "outDir": "./lib",
         "strict": true,
-        "types": ["node", "@citizenfx/server"]
+        "types": ["node", "@citizenfx/client"]
     },
     "include": ["src"],
     "exclude": ["node_modules"]
