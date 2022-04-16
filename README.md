@@ -1,6 +1,6 @@
 # @vrpjs/server
 
-A bridge for using [FiveM](http://fivem.net/) [vRP 1.0](https://github.com/ImagicTheCat/vRP/tree/1.0) in JavaScript.
+A bridge for using [FiveM](http://fivem.net/) [vRP 0.5](https://github.com/ImagicTheCat/vRP/tree/0.5) in JavaScript.
 
 ## Installation
 
@@ -11,7 +11,7 @@ It is done via the [`npm install` command](https://docs.npmjs.com/downloading-an
 ## Usage
 
 ```javascript
-const { VrpProxy, VrpTunnel } = require('@vrpjs/server');
+const { VrpProxy, VrpTunnel } = require('@vrpjs0.5/server');
 
 const vRP = VrpProxy.getInterface('vRP');
 const vRPClient = VrpTunnel.getInterface('vRP');
