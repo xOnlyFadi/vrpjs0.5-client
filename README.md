@@ -19,13 +19,15 @@ const vRPClient = VrpTunnel.getInterface('vRP');
 
 on('vRP:playerSpawn', async (userId, player, firstSpawn) => {
     if (firstSpawn) {
-        if (await vRP.request(player, 'Do you want money?', 20)) {
+        vRP.request(player, 'Do you want money?', 20, async (v,ok)  =>{
+        if (ok){
             vRP.giveMoney(userId, 1000);
-            vRPClient._notify(player, `You now have ~g~$${vRP.getMoney(userId)}!`);
+            vRPClient.notify(player, `You now have ~g~$${vRP.getMoney(userId)}!`);
         } else {
             const position = await vRPClient.getPosition(player);
-            vRPClient._notify(player, `You recused money at ~b~${position.join('~s~, ~b~')}~s~!`);
+            vRPClient.notify(player, `You recused money at ~b~${position.join('~s~, ~b~')}~s~!`);
         }
+    })
     }
 });
 ```
