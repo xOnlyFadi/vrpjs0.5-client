@@ -26,7 +26,7 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
             delete callbacks[id];
             ids.free(id);
 
-            callback(payloads.length <= 1 ? payloads[0] : payloads);
+            callback(payloads);
         }
     });
 
