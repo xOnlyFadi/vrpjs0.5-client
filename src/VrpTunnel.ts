@@ -40,7 +40,6 @@ export function getInterface(name: string, identifier: string = GetCurrentResour
                 const id = ids.gen();
 
                 callbacks[id] = resolve;
-                console.log(`target is ${target}, memberName is ${memberName},args is ${args},identifier is ${identifier}`)
                 emitNet(`${name}:tunnel_req`, target, memberName, args, identifier, id);
             });
         };
