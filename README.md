@@ -1,4 +1,5 @@
-# @vrpjs/server
+#Big Thanks to [Marmota](https://github.com/jaimeadf) for giving me the necessary files to convert it 
+# @vrpjs0.5/server
 
 A bridge for using [FiveM](http://fivem.net/) [vRP 0.5](https://github.com/ImagicTheCat/vRP/tree/0.5) in JavaScript.
 
