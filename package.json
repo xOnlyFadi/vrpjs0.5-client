@@ -25,7 +25,7 @@
     "citizenfx",
     "typescript"
   ],
-  "author": "Jaime Filho <jaimeadf>, xOnlyFadi",
+  "author": "xOnlyFadi, Jaime Filho <jaimeadf>, ",
   "license": "MIT",
   "files": [
     "lib/**/*"
