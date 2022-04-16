@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xOnlyFadi/vrpjs"
+    "url": "git+git@github.com:xOnlyFadi/vrpjs.git"
   },
   "keywords": [
     "vrp",
