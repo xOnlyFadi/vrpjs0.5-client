@@ -11,6 +11,8 @@ It is done via the [`npm install` command](https://docs.npmjs.com/downloading-an
 
 ## Usage
 
+> **Note:** This needs to be bundled to run using any module bundler of your choice, like [webpack](https://webpack.js.org).
+
 ```javascript
 const { VrpProxy, VrpTunnel } = require('@vrpjs0.5/client');
 
