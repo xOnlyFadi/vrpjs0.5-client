@@ -1,7 +1,12 @@
+// @ts-nocheck
 export type Handler = (...args: any[]) => Promise<unknown> | unknown;
 
 export interface Handlers {
     [member: string]: Handler;
+}
+
+function unpackinfo(infot:string){
+    return infot
 }
 
 export function getInterface(name: string) {
@@ -12,7 +17,7 @@ export function getInterface(name: string) {
     function generateHandler(memberName: string): Handler {
         return (...args: any[]) => {
             emit(`${name}:proxy`, memberName, args, proxy_callback);
-            return Proxyrdata;
+            return unpackinfo(...Proxyrdata);
         };
     }
 
